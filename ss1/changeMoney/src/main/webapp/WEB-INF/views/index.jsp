@@ -13,7 +13,7 @@
   <body>
   <form action="/result" method="get">
     <h2>Change Money</h2>
-    <input type="number" name="usd">
+    <input type="number" name=" usd">
     <input type="submit" placeholder="tinh tien">
   </form>
   <p>Result :${vnd}</p>
