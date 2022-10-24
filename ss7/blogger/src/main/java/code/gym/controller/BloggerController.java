@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -22,12 +23,7 @@ public class BloggerController {
     @Autowired
     ICategoryService categoryService;
 
-//    @GetMapping("/bloggers")
-//    public ModelAndView paging(@PageableDefault(value = 2) Pageable pageable) {
-//
-//        return new ModelAndView("/blog/index",
-//                "blogger",bloggerService.findAll(pageable));
-//    }
+
 
 
     @GetMapping("/bloggers")
@@ -52,6 +48,7 @@ public class BloggerController {
 
     @PostMapping("/blog/create")
     public ModelAndView createBlog(@ModelAttribute("blog") Blogger blogger) {
+        blogger.setCreateDate(new Date(System.currentTimeMillis()));
         bloggerService.save(blogger);
         List<Category> categories = categoryService.findAll();
         ModelAndView modelAndView = new ModelAndView("/blog/create");
@@ -130,4 +127,5 @@ public class BloggerController {
         modelAndView.addObject("blogger",bloggers);
         return modelAndView;
     }
+
 }

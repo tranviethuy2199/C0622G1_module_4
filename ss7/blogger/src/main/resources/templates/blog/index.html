@@ -34,7 +34,7 @@
             <td th:text="${blog.name}"></td>
             <td th:text="${blog.content}"></td>
             <td th:text="${blog.category.name}"></td>
-            <td th:text="${blog.createDay}"></td>
+            <td th:text="${blog.createDate}"></td>
             <td th:text="${blog.image}"></td>
             <td><a th:href="@{/edit-blog/__${blog.id}__}">edit</a></td>
             <td><a th:href="@{/delete-blog/__${blog.id}__}">delete</a></td>
