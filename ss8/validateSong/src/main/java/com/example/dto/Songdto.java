@@ -4,9 +4,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
-public class Songdto implements Validator {
+public class SongDto implements Validator {
     private int id;
     @NotBlank(message = "Vui lòng không để trống")
     private String name;
@@ -15,10 +14,10 @@ public class Songdto implements Validator {
     @NotBlank(message = "Vui lòng không để trống")
     private String type;
 
-    public Songdto() {
+    public SongDto() {
     }
 
-    public Songdto(int id, String name, String singer, String type) {
+    public SongDto(int id, String name, String singer, String type) {
         this.id = id;
         this.name = name;
         this.singer = singer;
@@ -64,7 +63,7 @@ public class Songdto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Songdto songDto = (Songdto) target;
+        SongDto songDto = (SongDto) target;
         if (!songDto.name.matches("^[A-Za-zàáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ ]{3,800}$") && !songDto.name.equals("")) {
             errors.rejectValue("name", "name.errors", "Tên bài hát không hợp lệ");
         }
@@ -74,5 +73,15 @@ public class Songdto implements Validator {
         if (!songDto.type.matches("^[A-Za-z1-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ, ]{3,1000}$") && !songDto.type.equals("")) {
             errors.rejectValue("type", "type.errors", "Thể loại nhạc không hợp lệ");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Songdto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", singer='" + singer + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

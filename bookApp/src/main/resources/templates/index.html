@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" style="text-align: center">
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Count</td>
+        <td>View</td>
+        <td>Return book</td>
+
+    </tr>
+
+    </thead>
+    <tbody>
+    <th:block th:each="list : ${list}">
+        <tr>
+            <td th:text="${list.name}"></td>
+            <td th:text="${list.count}"></td>
+            <td><a th:href="@{/view/__${list.id}__}">view</a></td>
+            <td><a th:href="@{/return/__${list.id}__}">return</a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

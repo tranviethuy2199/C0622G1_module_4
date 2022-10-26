@@ -19,23 +19,24 @@ public class UserController {
     IUserService iUserService;
 
 
-    @GetMapping("")
+    @GetMapping("/user")
     public ModelAndView register() {
-        ModelAndView modelAndView = new ModelAndView("users/form");
-        modelAndView.addObject("userDto", new Userdto());
+        ModelAndView modelAndView = new ModelAndView("/index");
+        modelAndView.addObject("userdto", new Userdto());
         return modelAndView;
     }
 
     @PostMapping("/register")
     public ModelAndView accept(@ModelAttribute @Validated Userdto userdto, BindingResult bindingResult) {
+        new Userdto().validate(userdto,bindingResult);
         if (bindingResult.hasFieldErrors()) {
-            ModelAndView modelAndView = new ModelAndView("users/form");
+            ModelAndView modelAndView = new ModelAndView("/index");
             return modelAndView;
         } else {
             User user = new User();
             BeanUtils.copyProperties(userdto, user);
             iUserService.save(user);
-            ModelAndView modelAndView = new ModelAndView("users/result");
+            ModelAndView modelAndView = new ModelAndView("/result");
             return modelAndView;
         }
     }

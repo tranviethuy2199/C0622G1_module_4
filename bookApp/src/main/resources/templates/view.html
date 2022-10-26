@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a href="/index">Back to list</a>
+</p>
+<table>
+    <tr>
+        <td>Name:</td>
+        <td th:text="${book.name}"></td>
+    </tr>
+    <tr>
+        <td>Count:</td>
+        <td th:text="${book.count}"></td>
+    </tr>
+    <tbody>
+    <th:block th:each="book : ${book}">
+        <tr>
+            <td><a th:href="@{/oder/__${book.id}__}">Oder</a></td>
+        </tr>
+    </th:block>
+</table>
+<p th:text="${code}"></p>
+</body>
+</html>

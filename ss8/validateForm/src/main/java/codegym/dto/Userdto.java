@@ -1,10 +1,12 @@
 package codegym.dto;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.thymeleaf.util.Validate;
 
 import javax.validation.constraints.*;
 
-public class Userdto  {
+public class Userdto implements Validator {
     @NotEmpty(message = "không được để trống")
     @Size(min = 5, max = 45 , message = "nhập sai định dạng")
     private String firstName;
@@ -77,5 +79,15 @@ public class Userdto  {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 }

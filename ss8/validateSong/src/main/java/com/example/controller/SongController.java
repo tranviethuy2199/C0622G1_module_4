@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.dto.Songdto;
+import com.example.dto.SongDto;
 import com.example.model.Song;
 import com.example.service.ISongService;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class SongController {
 
     @GetMapping("")
     public ModelAndView showList() {
-        ModelAndView modelAndView = new ModelAndView("song/list");
+        ModelAndView modelAndView = new ModelAndView("/list");
         List<Song> songs = iSongService.findAll();
         modelAndView.addObject("songs", songs);
         return modelAndView;
@@ -29,23 +29,23 @@ public class SongController {
 
     @GetMapping("/create")
     public ModelAndView showCreateSong() {
-        ModelAndView modelAndView = new ModelAndView("song/create");
-        modelAndView.addObject("songDto", new Songdto());
+        ModelAndView modelAndView = new ModelAndView("/create");
+        modelAndView.addObject("songDto", new SongDto());
         return modelAndView;
     }
 
     @PostMapping("/create")
-    public ModelAndView creatForm(@ModelAttribute @Validated Songdto songdto, BindingResult bindingResult) {
-        new Songdto().validate(songdto, bindingResult);
+    public ModelAndView creatForm(@Validated @ModelAttribute SongDto songDto, BindingResult bindingResult) {
+        new SongDto().validate(songDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
-            ModelAndView modelAndView = new ModelAndView("song/create");
+            ModelAndView modelAndView = new ModelAndView("/create");
             return modelAndView;
         } else {
             Song song = new Song();
-            BeanUtils.copyProperties(songdto, song);
+            BeanUtils.copyProperties(songDto, song);
             iSongService.save(song);
-            ModelAndView modelAndView = new ModelAndView("song/create");
-            modelAndView.addObject("songDto", songdto);
+            ModelAndView modelAndView = new ModelAndView("/create");
+            modelAndView.addObject("songDto", songDto);
             modelAndView.addObject("message", "Song created successfully");
             return modelAndView;
         }
@@ -54,24 +54,24 @@ public class SongController {
     @GetMapping("/edit/{id}")
     public ModelAndView showUpdateForm(@PathVariable int id) {
         Song song = iSongService.findById(id);
-        Songdto songdto = new Songdto();
+        SongDto songdto = new SongDto();
         BeanUtils.copyProperties(song, songdto);
-        ModelAndView modelAndView = new ModelAndView("song/edit");
+        ModelAndView modelAndView = new ModelAndView("/edit");
         modelAndView.addObject("songDto", songdto);
         return modelAndView;
     }
 
     @PostMapping("/edit")
-    public ModelAndView editForm(@ModelAttribute @Validated Songdto songDto, BindingResult bindingResult) {
-        new Songdto().validate(songDto, bindingResult);
+    public ModelAndView editForm(@ModelAttribute @Validated SongDto songDto, BindingResult bindingResult) {
+        new SongDto().validate(songDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
-            ModelAndView modelAndView = new ModelAndView("song/edit");
+            ModelAndView modelAndView = new ModelAndView("/edit");
             return modelAndView;
         } else {
             Song song = new Song();
             BeanUtils.copyProperties(songDto, song);
             iSongService.save(song);
-            ModelAndView modelAndView = new ModelAndView("song/edit");
+            ModelAndView modelAndView = new ModelAndView("/edit");
             modelAndView.addObject("songDto", songDto);
             modelAndView.addObject("message", "Song edited successfully");
             return modelAndView;
