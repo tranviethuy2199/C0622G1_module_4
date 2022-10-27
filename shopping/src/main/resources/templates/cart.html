@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table" th:if="${cart != null && cart.getProductMap().size() >0}">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="productMap:${cart.productMap}">
+                <td th:text="${productMap.key.name}">IMac</td>
+                <td>
+                    <img th:src="${productMap.key.image}">
+                </td>
+                <td th:text="${productMap.key.description}">asdads</td>
+                <td th:text="${productMap.key.price}">1000</td>
+                <td th:text="${productMap.key.value}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-warning" role="alert" th:if="${cart == null || cart.getProductMap().size() ==0}">Cart Empty</div>
+    </div>
+</div>
+</body>
+</html>

@@ -72,5 +72,5 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView("/return");
         modelAndView.addObject("book",book);
         return modelAndView;
-    }
+    } 
 }
