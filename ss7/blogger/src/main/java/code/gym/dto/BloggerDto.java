@@ -1,15 +1,12 @@
-package code.gym.model;
+package code.gym.dto;
 
+import code.gym.model.Category;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Set;
 
-@Entity
-public class Blogger {
-
+public class BloggerDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -24,10 +21,10 @@ public class Blogger {
     private Category category;
 
 
-    public Blogger() {
+    public BloggerDto() {
     }
 
-    public Blogger(int id, String name, String content, String image, Date createDate,Category category) {
+    public BloggerDto(int id, String name, String content, String image, Date createDate,Category category) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -83,4 +80,3 @@ public class Blogger {
         this.image = image;
     }
 }
-

@@ -2,34 +2,31 @@ package com.example.model.Person.customer;
 
 import com.example.model.Person.Person;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.sql.Date;
 
 @Entity
 public class Customer extends Person {
-    private Integer customerTypeId;
     private String gender;
     private String address;
-    private Integer customerType_Id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="customer_id" , referencedColumnName = "id")
+    private CustomerType customerType;
+
 
     public Customer() {
     }
 
-    public Customer(int id, String name, Date dayOfBirth, int idCard, String phoneNumber, String email,
-                    Integer customerTypeId, String gender, String address, Integer customerType_Id) {
+    public Customer(int id, String name, Date dayOfBirth, int idCard, String phoneNumber,
+                    String email, String gender, String address, CustomerType customerType) {
         super(id, name, dayOfBirth, idCard, phoneNumber, email);
-        this.customerTypeId = customerTypeId;
         this.gender = gender;
         this.address = address;
-        this.customerType_Id = customerType_Id;
-    }
-
-    public Integer getCustomerTypeId() {
-        return customerTypeId;
-    }
-
-    public void setCustomerTypeId(Integer customerTypeId) {
-        this.customerTypeId = customerTypeId;
+        this.customerType = customerType;
     }
 
     public String getGender() {
@@ -48,11 +45,4 @@ public class Customer extends Person {
         this.address = address;
     }
 
-    public Integer getCustomerType_Id() {
-        return customerType_Id;
-    }
-
-    public void setCustomerType_Id(Integer customerType_Id) {
-        this.customerType_Id = customerType_Id;
-    }
 }
