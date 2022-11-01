@@ -47,4 +47,9 @@ public class BloggerService implements IBloggerService {
     public List<Blogger> findBloggerByName(String BloggerName) {
         return bloggerRepository.findBloggerByName(BloggerName);
     }
+
+    @Override
+    public List<Blogger> findByName(String name) {
+        return bloggerRepository.findByNameContains(name);
+    }
 }

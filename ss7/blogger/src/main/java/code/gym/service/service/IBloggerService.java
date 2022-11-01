@@ -18,4 +18,6 @@ public interface IBloggerService {
     Page<Blogger> findAll(Pageable pageable);
 
     List<Blogger> findBloggerByName(String BloggerName);
+
+    List<Blogger> findByName(String name);
 }

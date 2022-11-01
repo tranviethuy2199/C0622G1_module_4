@@ -15,4 +15,6 @@ public interface IBloggerRepository extends JpaRepository<Blogger, Integer> {
     List<Blogger> findBloggerByName(@Param("keyword") String BloggerName);
 
 //    where name like %:keywork%
+
+    List<Blogger> findByNameContains(String name);
 }
