@@ -2,8 +2,8 @@ package code.gym.controller;
 
 import code.gym.model.Blogger;
 import code.gym.model.Category;
-import code.gym.service.service.IBloggerService;
-import code.gym.service.service.ICategoryService;
+import code.gym.service.IBloggerService;
+import code.gym.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -118,12 +118,12 @@ public class BloggerController {
         }
     }
 
-//    @GetMapping("/find")
-//    public ModelAndView find(@RequestParam String blogger){
-//        Page<Blogger> bloggers = bloggerService.findBloggerByName(blogger);
-//        ModelAndView modelAndView = new ModelAndView("/blog/index");
-//        modelAndView.addObject("blogger",bloggers);
-//        return modelAndView;
-//    }
+    @GetMapping("/find")
+    public ModelAndView find(@RequestParam String blogger){
+        List<Blogger> bloggers = bloggerService.findBloggerByName(blogger);
+        ModelAndView modelAndView = new ModelAndView("/blog/index");
+        modelAndView.addObject("blogger",bloggers);
+        return modelAndView;
+    }
 
 }

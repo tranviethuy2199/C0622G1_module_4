@@ -1,8 +1,8 @@
-package code.gym.service.service.impl;
+package code.gym.service.impl;
 
 import code.gym.model.Blogger;
 import code.gym.repository.IBloggerRepository;
-import code.gym.service.service.IBloggerService;
+import code.gym.service.IBloggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +25,6 @@ public class BloggerService implements IBloggerService {
         return bloggerRepository.findById(id).orElse(null);
         // nếu tìm thấy thì sẽ trả về một đối tượng , nếu không sẽ trả về null (orElse)
     }
-
-
 
     @Override
     public void save(Blogger blogger) {

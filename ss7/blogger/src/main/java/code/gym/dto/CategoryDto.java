@@ -1,7 +1,5 @@
 package code.gym.dto;
 
-import code.gym.model.Blogger;
-
 public class CategoryDto {
     private int id;
     private String name;

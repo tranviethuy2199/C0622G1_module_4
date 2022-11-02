@@ -1,16 +1,18 @@
 package com.example.controller;
 
 import com.example.model.Person.customer.Customer;
+import com.example.model.Person.customer.CustomerType;
 import com.example.service.ICustomerService;
-import com.example.service.IEmployeeService;
+import com.example.service.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Controller
@@ -18,13 +20,27 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    ICustomerService customerService;
+    private ICustomerService customerService;
+
+    @Autowired
+    private ICustomerTypeService customerTypeService;
 
 
-    @GetMapping("/furamas")
+    @GetMapping("/")
     public ModelAndView showList(@PageableDefault(value = 3) Pageable pageable) {
-        List<Customer> customers = customerService.findAll();
+        Page<Customer> customers = customerService.findAll(pageable);
+        List<CustomerType> customerTypes = customerTypeService.findAll();
         ModelAndView modelAndView = new ModelAndView("/index");
+        modelAndView.addObject("customerTypes", customerTypes);
         modelAndView.addObject("customer" , customers);
-       return null  ;  }
+       return modelAndView  ;}
+
+    @GetMapping("/create")
+    public ModelAndView showCreateForm() {
+        ModelAndView modelAndView = new ModelAndView("/blog/create");
+        List<CustomerType> customerTypes = customerTypeService.findAll();
+        modelAndView.addObject("customer", new Customer());
+        modelAndView.addObject("customerTypes", customerTypes);
+        return modelAndView;
+    }
 }

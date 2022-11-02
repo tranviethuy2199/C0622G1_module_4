@@ -2,7 +2,7 @@ package code.gym.controller;
 
 import code.gym.dto.BloggerDto;
 import code.gym.model.Blogger;
-import code.gym.service.service.IBloggerService;
+import code.gym.service.IBloggerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/blogger/v1")
 public class BloggerRestController {
     @Autowired
     private IBloggerService iBloggerService;
 
     @GetMapping("")
-    public ResponseEntity<List<Blogger>> getCategoryList(@PageableDefault(value = 3)Pageable pageable) {
+    public ResponseEntity<List<Blogger>> getCategoryList(@PageableDefault(value = 2)Pageable pageable) {
         Page<Blogger> blogers = iBloggerService.findAll(pageable);
         if (blogers.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -1,4 +1,4 @@
-package code.gym.service.service;
+package code.gym.service;
 
 import code.gym.model.Category;
 

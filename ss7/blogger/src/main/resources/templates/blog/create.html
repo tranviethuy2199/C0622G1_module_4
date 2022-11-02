@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta username="viewport" content="width=device-width, initial-scale=1"/>
     <title>Create new blog</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
         <p th:text="${message}"> </p>
     </th:block>
 </p>
-<form th:action="@{/blog/create}" th:object="${blog}" method="post">
+<form th:action="@{/bloggers/blog/create}" th:object="${blog}" method="post">
     <table>
         <tr>
             <td>NameBlog:</td>
