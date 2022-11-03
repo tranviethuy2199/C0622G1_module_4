@@ -1,56 +1,68 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ,
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Show blog list</title>
 </head>
 <body>
-<h1>Blog list</h1>
-<p>
-    <a href="/bloggers/blog/create">Create new blog</a>
-</p>
-<form action="/find">
-    Find Blogger by username<br>
-    <input type="text" username="blogger" placeholder="input Blogger Name">
-    <button type="submit">enter</button>
-</form>
-<table border="1">
-    <thead>
-    <tr>
-        <td>Name</td>
-        <td>Content</td>
-        <td>Category Name</td>
-        <td>Create Day</td>
-        <td>Image link</td>
-        <td>Edit</td>
-        <td>Delete</td>
-        <td>View</td>
-    </tr>
-
-    </thead>
-    <tbody>
-    <th:block th:each="blog : ${bloggers}">
+<div sec:authorize="isAuthenticated()">
+    <h1>Blog list</h1>
+    <div sec:authorize="hasRole('ADMIN')" style="color: cornflowerblue ; padding: 10px">
+        <p>
+            <a href="/bloggers/blog/create">Create new blog</a>
+        </p>
+    </div>
+    <form action="/find">
+        Find Blogger by username<br>
+        <input type="text" username="blogger" placeholder="input Blogger Name">
+        <button type="submit">enter</button>
+    </form>
+    <table border="1">
+        <thead>
         <tr>
-            <td th:text="${blog.name}"></td>
-            <td th:text="${blog.content}"></td>
-            <td th:text="${blog.category.name}"></td>
-            <td th:text="${blog.createDate}"></td>
-            <td th:text="${blog.image}"></td>
-            <td><a th:href="@{/bloggers/edit-blog/__${blog.id}__}">edit</a></td>
-            <td><a th:href="@{/bloggers/delete-blog/__${blog.id}__}">delete</a></td>
-            <td><a th:href="@{/bloggers/view-blog/__${blog.id}__}">view</a></td>
+            <td>Name</td>
+            <td>Content</td>
+            <td>Category Name</td>
+            <td>Create Day</td>
+            <td>Image link</td>
+            <td>Edit</td>
+            <td>Delete</td>
+            <td>View</td>
         </tr>
-    </th:block>
-    </tbody>
-</table>
-<div>
-    <a th:href="@{'/bloggers'(page=${bloggers.number - 1})}"
-    th:if="${bloggers.hasPrevious()}">Previous</a>
-    <span th:text="${bloggers.number+1}"></span>
-    <span th:text="${bloggers.totalPages}"></span>
 
-    <a th:href="@{'/bloggers'(page=${bloggers.number + 1})}"
-    th:if="${bloggers.hasNext()}">Next</a>
+        </thead>
+        <tbody>
+        <th:block th:each="blog : ${bloggers}">
+            <tr>
+                <td th:text="${blog.name}"></td>
+                <td th:text="${blog.content}"></td>
+                <td th:text="${blog.category.name}"></td>
+                <td th:text="${blog.createDate}"></td>
+                <td th:text="${blog.image}"></td>
+                <div sec:authorize="hasRole('ADMIN')" style="color: cornflowerblue ;  padding: 10px">
+                    <td><a th:href="@{/bloggers/edit-blog/__${blog.id}__}">edit</a></td>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')" style="color: cornflowerblue ; padding: 10px">
+                    <td><a th:href="@{/bloggers/delete-blog/__${blog.id}__}">delete</a></td>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')" style="color: cornflowerblue ; padding: 10px">
+                    <td><a th:href="@{/bloggers/view-blog/__${blog.id}__}">view</a></td>
+                </div>
+
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{'/bloggers'(page=${bloggers.number - 1})}"
+           th:if="${bloggers.hasPrevious()}">Previous</a>
+        <span th:text="${bloggers.number+1}"></span>
+        <span th:text="${bloggers.totalPages}"></span>
+
+        <a th:href="@{'/bloggers'(page=${bloggers.number + 1})}"
+           th:if="${bloggers.hasNext()}">Next</a>
+    </div>
 </div>
 </body>
 </html>
