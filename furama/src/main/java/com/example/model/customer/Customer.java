@@ -13,7 +13,7 @@ public class Customer {
     private int idCard;
     private String phoneNumber;
     private String email;
-    private String gender;
+    private int gender;
     private String address;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -24,7 +24,7 @@ public class Customer {
     }
 
     public Customer(Integer id, String name, Date dateOfBirth, int idCard,
-                    String phoneNumber, String email, String gender, String address, CustomerType customerType) {
+                    String phoneNumber, String email, int gender, String address, CustomerType customerType) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -84,11 +84,11 @@ public class Customer {
         this.email = email;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 

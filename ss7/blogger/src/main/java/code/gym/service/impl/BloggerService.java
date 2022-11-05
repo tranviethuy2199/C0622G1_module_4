@@ -42,8 +42,8 @@ public class BloggerService implements IBloggerService {
     }
 
     @Override
-    public List<Blogger> findBloggerByName(String BloggerName) {
-        return bloggerRepository.findBloggerByName(BloggerName);
+    public List<Blogger> findBloggerByName(String bloggerName , Pageable pageable ) {
+        return bloggerRepository.findBloggerByName(bloggerName , pageable);
     }
 
     @Override

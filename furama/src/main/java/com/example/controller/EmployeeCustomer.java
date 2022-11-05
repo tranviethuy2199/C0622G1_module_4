@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("")
 public class EmployeeCustomer {
 
     @Autowired
@@ -34,7 +34,7 @@ public class EmployeeCustomer {
     @Autowired
     private IPositionService positionService;
 
-    @GetMapping("")
+    @GetMapping("/employee")
     public ModelAndView showList(@PageableDefault(value = 3) Pageable pageable) {
         Page<Employee> employees = employeeService.findAll(pageable);
         List<EducationDegree> educationDegrees = education_degreeService.findAll();
@@ -134,7 +134,7 @@ public class EmployeeCustomer {
         }
     }
 
-    @GetMapping("/find")
+    @GetMapping("/employee/find")
     public ModelAndView find(@RequestParam String EmployeeName) {
         List<Employee> employees = employeeService.findEmployeeByName(EmployeeName);
         ModelAndView modelAndView = new ModelAndView("/employee/index");

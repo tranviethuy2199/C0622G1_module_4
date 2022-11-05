@@ -55,7 +55,7 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @GetMapping("/customer/edit/{id}")
+    @GetMapping("/edit-customer/{id}")
     public ModelAndView showUpdateForm(@PathVariable int id) {
         Customer customer = customerService.findById(id);
         List<CustomerType> customerTypes = customerTypeService.findAll();
@@ -70,7 +70,18 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/customer/delete{id}")
+    @PostMapping("/edit-customer")
+    public ModelAndView update(@ModelAttribute("customer") Customer customer){
+        customerService.save(customer);
+        List<CustomerType> customerTypes = customerTypeService.findAll();
+        ModelAndView modelAndView = new ModelAndView("/customer/edit");
+        modelAndView.addObject("customer",customer);
+        modelAndView.addObject("customerTypes" , customerTypes);
+        modelAndView.addObject("message" , "Updated customer successfully");
+        return modelAndView;
+    }
+
+    @GetMapping("/delete-customer/{id}")
     public ModelAndView showDeleteForm(@PathVariable int id) {
         Customer customer = customerService.findById(id);
         List<CustomerType> customerTypes = customerTypeService.findAll();
@@ -85,18 +96,17 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("/customer/delete{id}")
-    public String delete(@ModelAttribute("blog") Customer customer) {
+    @PostMapping("/delete-customer")
+    public String delete(@ModelAttribute("customer") Customer customer) {
         customerService.remove(customer);
-        return "redirect:customer";
+        return "redirect:/customer";
     }
 
-    @GetMapping("/customer/view{id}")
+    @GetMapping("/view-customer/{id}")
     public ModelAndView view(@PathVariable int id) {
         Customer customer = customerService.findById(id);
-
         if (customer != null) {
-            ModelAndView modelAndView = new ModelAndView("/view");
+            ModelAndView modelAndView = new ModelAndView("/customer/view");
             modelAndView.addObject("customer", customer);
             return modelAndView;
         } else {
@@ -106,10 +116,35 @@ public class CustomerController {
     }
 
     @GetMapping("/find")
-    public ModelAndView find(@RequestParam String CustomerName) {
-        List<Customer> customers = customerService.findCustomerByName(CustomerName);
-        ModelAndView modelAndView = new ModelAndView("/blog/index");
+    public ModelAndView findbyName(@RequestParam String customerName) {
+        List<Customer> customers = customerService.findCustomerByName(customerName);
+        List<CustomerType> customerTypes = customerTypeService.findAll();
+        ModelAndView modelAndView = new ModelAndView("/customer/list");
+        modelAndView.addObject("customerName", customerName);
         modelAndView.addObject("customers", customers);
+        modelAndView.addObject("customerTypes", customerTypes);
+        return modelAndView;
+    }
+
+    @GetMapping("/find")
+    public ModelAndView findEmail(@RequestParam String customerEmail) {
+        List<Customer> customers = customerService.findCustomerByEmail(customerEmail);
+        List<CustomerType> customerTypes = customerTypeService.findAll();
+        ModelAndView modelAndView = new ModelAndView("/customer/list");
+        modelAndView.addObject("customerEmail", customerEmail);
+        modelAndView.addObject("customers", customers);
+        modelAndView.addObject("customerTypes", customerTypes);
+        return modelAndView;
+    }
+
+    @GetMapping("/find")
+    public ModelAndView findCustomerType(@RequestParam String customerType) {
+        List<Customer> customers = customerService.findCustomerByCustomerType(customerType);
+        List<CustomerType> customerTypes = customerTypeService.findAll();
+        ModelAndView modelAndView = new ModelAndView("/customer/list");
+        modelAndView.addObject("customerType.", customerType);
+        modelAndView.addObject("customers", customers);
+        modelAndView.addObject("customerTypes", customerTypes);
         return modelAndView;
     }
 }

@@ -84,8 +84,7 @@
             <td th:text="${facilitie.facility_free}"></td>
             <td th:text="${facilitie.pool_area}"></td>
             <td th:text="${facilitie.standardRoom.name}"></td>
-            <td th:text="${facilitie.rentType.name}"></td>
-            <td></td>
+            <td th:text="${facilitie.rentType.note}"></td>
             <td><a th:href="@{/facilitie/edit-facilitie/__${facilitie.id}__}">EDIT</a></td>
             <td><a th:href="@{/facilitie/view-facilitie/__${facilitie.id}__}">VIEW</a></td>
             <td><a th:href="@{/facilitie/delete-facilitie/__${facilitie.id}__}">DELETE</a></td>

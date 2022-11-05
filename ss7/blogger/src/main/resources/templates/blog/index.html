@@ -13,9 +13,9 @@
             <a href="/bloggers/blog/create">Create new blog</a>
         </p>
     </div>
-    <form action="/find">
+    <form action="/bloggers/find">
         Find Blogger by username<br>
-        <input type="text" username="blogger" placeholder="input Blogger Name">
+        <input type="text" name="bloggerName" placeholder="input Blogger Name">
         <button type="submit">enter</button>
     </form>
     <table border="1">
@@ -54,15 +54,14 @@
         </th:block>
         </tbody>
     </table>
-    <div>
-        <a th:href="@{'/bloggers'(page=${bloggers.number - 1})}"
-           th:if="${bloggers.hasPrevious()}">Previous</a>
-        <span th:text="${bloggers.number+1}"></span>
-        <span th:text="${bloggers.totalPages}"></span>
-
-        <a th:href="@{'/bloggers'(page=${bloggers.number + 1})}"
-           th:if="${bloggers.hasNext()}">Next</a>
-    </div>
+<!--    <div>-->
+<!--        <a th:href="@{'/bloggers'(page=${bloggers.number - 1} ,bloggerName=${bloggerName})}"-->
+<!--           th:if="${bloggers.hasPrevious()}">Previous</a>-->
+<!--        <span th:text="${bloggers.number+1}"></span>-->
+<!--        <span th:text="${bloggers.totalPages}"></span>-->
+<!--        <a th:href="@{'/bloggers'(page=${bloggers.number + 1} ,bloggerName=${bloggerName})}"-->
+<!--           th:if="${bloggers.hasNext()}">Next</a>-->
+<!--    </div>-->
 </div>
 </body>
 </html>

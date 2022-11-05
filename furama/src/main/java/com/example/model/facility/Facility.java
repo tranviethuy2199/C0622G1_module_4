@@ -14,7 +14,7 @@ public class Facility {
     private String convenience; // tiện nghi - room and villa
     private int floors;
     private String facility_free; // dịch vụ miễn phí đi kèm - room
-    private double pool_area; // diện tích hồ bơi - villa
+    private String pool_area; // diện tích hồ bơi - villa
 
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -30,7 +30,7 @@ public class Facility {
 
     public Facility(Integer id, String name, double area, double cost,
                     int amount, String convenience, int floors, String facility_free,
-                    double pool_area, StandardRoom standardRoom, RentType rentType) {
+                    String pool_area, StandardRoom standardRoom, RentType rentType) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -108,11 +108,11 @@ public class Facility {
         this.facility_free = facility_free;
     }
 
-    public double getPool_area() {
+    public String getPool_area() {
         return pool_area;
     }
 
-    public void setPool_area(double pool_area) {
+    public void setPool_area(String pool_area) {
         this.pool_area = pool_area;
     }
 

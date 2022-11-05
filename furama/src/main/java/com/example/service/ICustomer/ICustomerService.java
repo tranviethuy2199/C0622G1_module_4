@@ -24,5 +24,9 @@ public interface ICustomerService {
     Page<Customer> findAll(Pageable pageable);
 
     //tìm theo tên
-    List<Customer> findCustomerByName(String CustomerName);
+    List<Customer> findCustomerByName(String customerName);
+
+    List<Customer> findCustomerByEmail(String customerEmail);
+
+    List<Customer> findCustomerByCustomerType(String customerType);
 }

@@ -101,13 +101,12 @@ public class BloggerController {
     @PostMapping("/delete-blog")
     public String delete(@ModelAttribute("blog") Blogger blogger) {
         bloggerService.remove(blogger);
-        return "redirect:bloggers";
+        return "redirect:/bloggers";
     }
 
     @GetMapping("/view-blog/{id}")
     public ModelAndView view(@PathVariable int id) {
         Blogger bloger = bloggerService.findById(id);
-
         if (bloger != null) {
             ModelAndView modelAndView = new ModelAndView("/blog/view");
             modelAndView.addObject("blog", bloger);
@@ -119,10 +118,13 @@ public class BloggerController {
     }
 
     @GetMapping("/find")
-    public ModelAndView find(@RequestParam String blogger){
-        List<Blogger> bloggers = bloggerService.findBloggerByName(blogger);
+    public ModelAndView find(@RequestParam String bloggerName , Pageable pageable){
+        List<Blogger> bloggers = bloggerService.findBloggerByName(bloggerName , pageable);
+        List<Category> categories = categoryService.findAll();
         ModelAndView modelAndView = new ModelAndView("/blog/index");
-        modelAndView.addObject("blogger",bloggers);
+        modelAndView.addObject("bloggerName",bloggerName);
+        modelAndView.addObject("bloggers",bloggers);
+        modelAndView.addObject("categories",categories);
         return modelAndView;
     }
 

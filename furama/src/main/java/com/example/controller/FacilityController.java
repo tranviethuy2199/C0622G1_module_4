@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/facility")
+@RequestMapping("")
 public class FacilityController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class FacilityController {
     @Autowired
     private IRentTypeService rentTypeService;
 
-    @GetMapping("")
+    @GetMapping("/facility")
     public ModelAndView showList(@PageableDefault(value = 3) Pageable pageable) {
         Page<Facility> facilities = facilityService.findAll(pageable);
         List<StandardRoom> standardRooms = standardRoomService.findAll();
