@@ -15,11 +15,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/facility")
 public class FacilityController {
 
     @Autowired
@@ -31,13 +32,15 @@ public class FacilityController {
     @Autowired
     private IRentTypeService rentTypeService;
 
-    @GetMapping("/facility")
+    @GetMapping("")
     public ModelAndView showList(@PageableDefault(value = 3) Pageable pageable) {
         Page<Facility> facilities = facilityService.findAll(pageable);
         List<StandardRoom> standardRooms = standardRoomService.findAll();
         List<RentType> rentTypes = rentTypeService.findAll();
+        Facility facilityEmpty = new Facility();
         ModelAndView modelAndView = new ModelAndView("/facility/list");
         modelAndView.addObject("facilities", facilities);
+        modelAndView.addObject("facilityEmpty", facilityEmpty);
         modelAndView.addObject("standardRooms", standardRooms);
         modelAndView.addObject("rentTypes", rentTypes);
         return modelAndView;
@@ -56,6 +59,9 @@ public class FacilityController {
 
     @PostMapping("/facility/create")
     public ModelAndView createBlog(@ModelAttribute("facility") Facility facility) {
+        if (facility.getName() == "House"){
+
+        }
         facilityService.save(facility);
         List<StandardRoom> standardRooms = standardRoomService.findAll();
         List<RentType> rentTypes = rentTypeService.findAll();
@@ -67,24 +73,15 @@ public class FacilityController {
         return modelAndView;
     }
 
-    @GetMapping("/facility/edit/{id}")
-    public ModelAndView showUpdateForm(@PathVariable int id) {
-        Facility facility = facilityService.findById(id);
-        List<StandardRoom> standardRooms = standardRoomService.findAll();
-        List<RentType> rentTypes = rentTypeService.findAll();
-        if (facility != null) {
-            ModelAndView modelAndView = new ModelAndView("/facility/edit");
-            modelAndView.addObject("facilities", facility);
-            modelAndView.addObject("standardRooms", standardRooms);
-            modelAndView.addObject("rentTypes", rentTypes);
-            return modelAndView;
-        } else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
-            return modelAndView;
-        }
+    @GetMapping("/edit")
+    public String showUpdateForm(@ModelAttribute("facilityEmpty") Facility facility,
+                                       RedirectAttributes redirectAttributes) {
+        facilityService.save(facility);
+        redirectAttributes.addFlashAttribute("message", "update " + facility.getName() + "OK!");
+    return "redirect:/facility";
     }
 
-    @GetMapping("/facility/delete{id}")
+    @GetMapping("/delete-facility/{id}")
     public ModelAndView showDeleteForm(@PathVariable int id) {
         Facility facility = facilityService.findById(id);
         List<StandardRoom> standardRooms = standardRoomService.findAll();
@@ -101,10 +98,11 @@ public class FacilityController {
         }
     }
 
-    @PostMapping("/facility/delete{id}")
-    public String delete(@ModelAttribute("facility") Facility facility) {
-        facilityService.remove(facility);
-        return "redirect:facility";
+    @PostMapping("/delete")
+    public String delete(@RequestParam String idDelete) {
+        Facility facilityDelete = facilityService.findById(Integer.valueOf(idDelete));
+        facilityService.remove(facilityDelete);
+        return "redirect:/facility";
     }
 
     @GetMapping("/facility/view{id}")

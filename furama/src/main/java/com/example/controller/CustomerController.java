@@ -96,11 +96,13 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("/delete-customer")
+    @PostMapping("/delete")
     public String delete(@ModelAttribute("customer") Customer customer) {
         customerService.remove(customer);
         return "redirect:/customer";
     }
+
+
 
     @GetMapping("/view-customer/{id}")
     public ModelAndView view(@PathVariable int id) {
@@ -116,35 +118,18 @@ public class CustomerController {
     }
 
     @GetMapping("/find")
-    public ModelAndView findbyName(@RequestParam String customerName) {
-        List<Customer> customers = customerService.findCustomerByName(customerName);
+    public ModelAndView findbyName(@RequestParam(value = "name") String name ,
+                                   @RequestParam(value = "email") String email ,
+                                   @RequestParam(value = "type") String type ,@PageableDefault(value = 4) Pageable pageable) {
+        Page<Customer> customer = customerService.findCustomerByName(name,email,type , pageable);
         List<CustomerType> customerTypes = customerTypeService.findAll();
         ModelAndView modelAndView = new ModelAndView("/customer/list");
-        modelAndView.addObject("customerName", customerName);
-        modelAndView.addObject("customers", customers);
+        modelAndView.addObject("name", name);
+        modelAndView.addObject("email", email);
+        modelAndView.addObject("type", type);
+        modelAndView.addObject("customer", customer);
         modelAndView.addObject("customerTypes", customerTypes);
         return modelAndView;
     }
 
-    @GetMapping("/find")
-    public ModelAndView findEmail(@RequestParam String customerEmail) {
-        List<Customer> customers = customerService.findCustomerByEmail(customerEmail);
-        List<CustomerType> customerTypes = customerTypeService.findAll();
-        ModelAndView modelAndView = new ModelAndView("/customer/list");
-        modelAndView.addObject("customerEmail", customerEmail);
-        modelAndView.addObject("customers", customers);
-        modelAndView.addObject("customerTypes", customerTypes);
-        return modelAndView;
-    }
-
-    @GetMapping("/find")
-    public ModelAndView findCustomerType(@RequestParam String customerType) {
-        List<Customer> customers = customerService.findCustomerByCustomerType(customerType);
-        List<CustomerType> customerTypes = customerTypeService.findAll();
-        ModelAndView modelAndView = new ModelAndView("/customer/list");
-        modelAndView.addObject("customerType.", customerType);
-        modelAndView.addObject("customers", customers);
-        modelAndView.addObject("customerTypes", customerTypes);
-        return modelAndView;
-    }
 }
