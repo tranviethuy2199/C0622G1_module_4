@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Customer">Customer</a>
+                    <a class="nav-link" href="/customer">Customer</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/employee">Employee</a>
@@ -64,7 +64,6 @@
         <th scope="col">Id Card</th>
         <th scope="col">Phone Number</th>
         <th scope="col">Email</th>
-        <th scope="col">Gender</th>
         <th scope="col">Address</th>
         <th scope="col">Education</th>
         <th scope="col">Division</th>
@@ -94,14 +93,14 @@
     </th:block>
     </tbody>
 </table>
-<!--<div>-->
-<!--    <a th:href="@{'/employee'(page=${employee.number - 1})}"-->
-<!--       th:if="${employee.hasPrevious()}">Previous</a>-->
-<!--    <span th:text="${employee.number+1}"></span>-->
-<!--    <span th:text="${employee.totalPages}"></span>-->
+<div>
+    <a th:href="@{'/employee'(page=${employees.number - 1})}"
+       th:if="${employees.hasPrevious()}">Previous</a>
+    <span th:text="${employees.number+1}"></span>
+    <span th:text="${employees.totalPages}"></span>
 
-<!--    <a th:href="@{'/employee'(page=${employee.number + 1})}"-->
-<!--       th:if="${employee.hasNext()}">Next</a>-->
-<!--</div>-->
+    <a th:href="@{'/employee'(page=${employees.number + 1})}"
+       th:if="${employees.hasNext()}">Next</a>
+</div>
 </body>
 </html>

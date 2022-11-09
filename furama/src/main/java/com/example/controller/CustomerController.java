@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,7 +27,8 @@ public class CustomerController {
 
 
     @GetMapping("")
-    public ModelAndView showList(@PageableDefault(value = 3) Pageable pageable) {
+    public ModelAndView showList(@PageableDefault(value = 3)
+                                             Pageable pageable) {
         Page<Customer> customers = customerService.findAll(pageable);
         List<CustomerType> customerTypes = customerTypeService.findAll();
         ModelAndView modelAndView = new ModelAndView("/customer/list");
@@ -81,24 +83,11 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @GetMapping("/delete-customer/{id}")
-    public ModelAndView showDeleteForm(@PathVariable int id) {
+    @GetMapping ("/delete")
+    public String delete(@RequestParam int id){
         Customer customer = customerService.findById(id);
-        List<CustomerType> customerTypes = customerTypeService.findAll();
-        if (customer != null) {
-            ModelAndView modelAndView = new ModelAndView("/customer/delete");
-            modelAndView.addObject("customer", customer);
-            modelAndView.addObject("customerTypes", customerTypes);
-            return modelAndView;
-        } else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
-            return modelAndView;
-        }
-    }
-
-    @PostMapping("/delete")
-    public String delete(@ModelAttribute("customer") Customer customer) {
-        customerService.remove(customer);
+        customer.setStatus(0);
+        customerService.save(customer);
         return "redirect:/customer";
     }
 

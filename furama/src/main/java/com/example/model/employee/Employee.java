@@ -1,7 +1,11 @@
 package com.example.model.employee;
 
+import com.example.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class Employee {
@@ -27,6 +31,10 @@ public class Employee {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "position_id" , referencedColumnName = "id")
     private Position position;
+
+    @OneToMany(mappedBy = "employee")
+    private Set<Contract> contracts;
+
 
     public Employee() {
     }

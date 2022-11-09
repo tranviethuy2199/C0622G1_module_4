@@ -12,25 +12,29 @@ public class Facility {
     private double cost;
     private int amount;
     private String convenience; // tiện nghi - room and villa
-    private int floors;
+    private Integer floors;
     private String facility_free; // dịch vụ miễn phí đi kèm - room
     private String pool_area; // diện tích hồ bơi - villa
+    private Integer status = 1;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="standardRoom_id" , referencedColumnName = "id")
-    private StandardRoom standardRoom;
+    @JoinColumn(name="facilityType_id" , referencedColumnName = "id")
+    private FacilityType facilityType;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="rentType_id" , referencedColumnName = "id")
     private RentType rentType;
 
+//    @OneToOne(mappedBy = "facility")
+//    private Contract contract;
+
     public Facility() {
     }
 
-    public Facility(Integer id, String name, double area, double cost,
-                    int amount, String convenience, int floors, String facility_free,
-                    String pool_area, StandardRoom standardRoom, RentType rentType) {
+    public Facility(Integer id, String name, double area, double cost, int amount,
+                    String convenience, Integer floors, String facility_free,
+                    String pool_area, Integer status, FacilityType facilityType, RentType rentType) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -40,8 +44,25 @@ public class Facility {
         this.floors = floors;
         this.facility_free = facility_free;
         this.pool_area = pool_area;
-        this.standardRoom = standardRoom;
+        this.status = status;
+        this.facilityType = facilityType;
         this.rentType = rentType;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -52,13 +73,6 @@ public class Facility {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public double getArea() {
         return area;
@@ -92,11 +106,11 @@ public class Facility {
         this.convenience = convenience;
     }
 
-    public int getFloors() {
+    public Integer getFloors() {
         return floors;
     }
 
-    public void setFloors(int floors) {
+    public void setFloors(Integer floors) {
         this.floors = floors;
     }
 
@@ -116,12 +130,12 @@ public class Facility {
         this.pool_area = pool_area;
     }
 
-    public StandardRoom getStandardRoom() {
-        return standardRoom;
+    public FacilityType getFacilityType() {
+        return facilityType;
     }
 
-    public void setStandardRoom(StandardRoom standardRoom) {
-        this.standardRoom = standardRoom;
+    public void setFacilityType(FacilityType facilityType) {
+        this.facilityType = facilityType;
     }
 
     public RentType getRentType() {

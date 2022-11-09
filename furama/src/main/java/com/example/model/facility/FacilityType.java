@@ -9,20 +9,20 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-public class StandardRoom {
+public class FacilityType {
     @Id
     @GeneratedValue
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "standardRoom")
+    @OneToMany(mappedBy = "facilityType")
     @JsonBackReference
     private Set<Facility> facilities;
 
-    public StandardRoom() {
+    public FacilityType() {
     }
 
-    public StandardRoom(Integer id, String name, Set<Facility> facilities) {
+    public FacilityType(Integer id, String name, Set<Facility> facilities) {
         this.id = id;
         this.name = name;
         this.facilities = facilities;

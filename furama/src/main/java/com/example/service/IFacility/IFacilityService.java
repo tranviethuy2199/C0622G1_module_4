@@ -8,21 +8,22 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IFacilityService {
-    // show danh sách customer
+    // show danh sách facility
     List<Facility> findAll();
 
-    // tìm customer theo id
+    // tìm facility theo id
     Facility findById(Integer id);
 
-    // lưu khi add customer
+    // lưu khi add facility
     void save(Facility facility);
 
-    // xóa customer
+    // xóa facility
     void remove(Facility facility);
 
     // phân trang
     Page<Facility> findAll(Pageable pageable);
 
-    //tìm theo tên
-//    List<Facility> findCustomerByName(String CustomerName);
+//    tìm theo tên
+    Page<Facility> findFacilityByName(String name ,
+                                      String type , Pageable pageable);
 }

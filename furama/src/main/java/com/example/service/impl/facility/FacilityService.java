@@ -39,4 +39,9 @@ public class FacilityService implements IFacilityService {
     public Page<Facility> findAll(Pageable pageable) {
         return facilityRepository.findAll(pageable);
     }
+
+//    @Override
+    public Page<Facility> findFacilityByName(String name, String type, Pageable pageable) {
+        return facilityRepository.findFacilityByName(name, type, pageable);
+    }
 }

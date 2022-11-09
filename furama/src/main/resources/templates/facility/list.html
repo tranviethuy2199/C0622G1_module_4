@@ -26,13 +26,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/customer">Customer</a>
+                    <a class="nav-link" th:href="@{/customer}">Customer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/employee">Employee</a>
+                    <a class="nav-link" th:href="@{/employee}">Employee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/facility">Facility</a>
+                    <a class="nav-link" th:href="@{/facility}">Facility</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -49,11 +49,19 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/facility/facility/create">CREATE</a>
+                    <a class="nav-link " th:href="@{/facility/facility/create}">CREATE</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+            <form class="d-flex" role="search" action="/facility/find123" method="get">
+                <input class="form-control me-2" aria-label="Search" type="text"
+                       placeholder="Search name"
+                       name="searchName" th:value="*{searchName}">
+
+                <select class="mx-3" name="type">
+                    <option value="">Rent Type</option>
+                    <option th:each="x : ${facilityTypes}" th:text="${x.getName()}" th:value="${x.getId()}"></option>
+                </select>
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -63,6 +71,7 @@
     <thead>
     <tr>
         <!--        <th scope="col">#</th>-->
+        <th scope="col">Type</th>
         <th scope="col">Name</th>
         <th scope="col">Area</th>
         <th scope="col">Cost</th>
@@ -71,7 +80,6 @@
         <th scope="col">Floors</th>
         <th scope="col">Facility_free</th>
         <th scope="col">Pool_area</th>
-        <th scope="col">Standard Room</th>
         <th scope="col">Rent Type</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
@@ -81,6 +89,7 @@
     <!--        <th scope="row">1</th>-->
     <th:block th:each="facilitie : ${facilities}">
         <tr>
+            <td th:text="${facilitie.facilityType.name}"></td>
             <td th:text="${facilitie.name}"></td>
             <td th:text="${facilitie.area}"></td>
             <td th:text="${facilitie.cost}"></td>
@@ -89,15 +98,14 @@
             <td th:text="${facilitie.floors}"></td>
             <td th:text="${facilitie.facility_free}"></td>
             <td th:text="${facilitie.pool_area}"></td>
-            <td th:text="${facilitie.standardRoom.name}"></td>
             <td th:text="${facilitie.rentType.note}"></td>
             <!--            <td><a th:href="@{/facilitie/edit-facilitie/__${facilitie.id}__}">EDIT</a></td>-->
             <td>
                 <button type="button" class="btn btn-warning"
-                        th:attr="onclick=|showModalEditCustomer('${facilitie.name}', '${facilitie.area}',
+                        th:attr="onclick=|showModalEditCustomer('${facilitie.facilityType.id}','${facilitie.name}', '${facilitie.area}',
                      '${facilitie.cost}', '${facilitie.amount}', '${facilitie.convenience}',
                       '${facilitie.floors}', '${facilitie.facility_free}', '${facilitie.pool_area}',
-                      '${facilitie.standardRoom.id}','${facilitie.rentType.id}','${facilitie.id}')|"
+                      '${facilitie.rentType.id}','${facilitie.id}')|"
                         data-bs-toggle="modal" data-bs-target="#editInfoModal">
                     Edit
                 </button>
@@ -127,7 +135,6 @@
 <script>
     function showModalDeleteFacility(id, name) {
         $('#nameDelete').text(name)
-        // $('#confirmDelete').attr('href', '/delete-facility' + id);
         $('#modalDelete').modal('show');
 
         document.getElementById("confirmDelete").value = id;
@@ -148,8 +155,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <form th:action="@{/facility/delete}" method="post">
-                    <input hidden type="text" name="idDelete" id="confirmDelete">
+                <form action="/facility/delete">
+                    <input hidden type="text" name="id" id="confirmDelete">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
@@ -158,6 +165,9 @@
         </div>
     </div>
 </div>
+
+<!--modal edit-->
+
 <div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="editInfoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form th:object="${facility}" action="/facility/edit">
@@ -173,14 +183,20 @@
                         <div class="input-group mb-3">
                             <input type="text" th:field="*{id}" id="facility-id" hidden>
                             <span class="input-group-text">@</span>
-                            <select th:field="*{name}" id="facilityName">
-                                <option value="House">House</option>
-                                <option value="Villa">Villa</option>
-                                <option value="Room">Room</option>
+                            <select th:field="*{facilityType}" id="facilityType" >-->
+                                <option th:each="item:${facilityTypes}"
+                                        th:value="${item.id}"
+                                        th:text="${item.name}"
+                                        ></option>
                             </select>
                             <span class="input-group-text">amount</span>
                             <input type="text" class="form-control" placeholder="amount / số lượng "
                                    th:field="*{amount}" id="facility-amount">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" >@</span>
+                            <input type="text" class="form-control" placeholder="name / Tên dịch vụ" aria-label="name"
+                                   aria-describedby="basic-addon1" th:field="*{name}" id="facilityName">
                         </div>
                         <div class="input-group mb-3" id="villa">
                             <span class="input-group-text">@</span>
@@ -209,10 +225,6 @@
                                    th:field="*{facility_free}">
                         </div>
                         <div class="input-group mb-3">
-                            <select th:field="*{standardRoom}" id="facilityStandRoom">-->
-                                <option th:each="item:${standardRooms}" th:value="${item.id}"
-                                        th:text="${item.name}"></option>
-                            </select>
                             <select th:field="*{rentType}" id="facilityRentTypes">-->
                                 <option th:each="item:${rentTypes}" th:value="${item.id}"
                                         th:text="${item.note}"></option>
@@ -244,21 +256,21 @@
 
 </script>
 <script>
-    function  showModalEditCustomer(name, area, cost, amount, convenience,floors, facilityFree, poolArea,
-                                    standardRoomId,rentTypeId, id) {
+    function  showModalEditCustomer(facilityType, name ,area, cost,
+                                    amount, convenience,floors, facilityFree,
+                                    poolArea,rentTypeId, id) {
 
-        document.getElementById('facilityName').value = name;
         document.getElementById('facility-id').value = id;
-        document.getElementById('facility-amount').value = amount;
-        document.getElementById('facilityCost').value = cost;
-        document.getElementById('facilityConvenience').value = convenience;
+        document.getElementById('facilityType').value = facilityType;
+        document.getElementById('facilityName').value = name;
         document.getElementById('facilityArea').value = area;
+        document.getElementById('facilityCost').value = cost;
+        document.getElementById('facility-amount').value = amount;
+        document.getElementById('facilityConvenience').value = convenience;
         document.getElementById('facilityFloors').value = floors;
-        document.getElementById('pool-area').value = poolArea;
         document.getElementById('facilityFree').value = facilityFree;
-        document.getElementById('facilityStandRoom').value = standardRoomId;
+        document.getElementById('pool-area').value = poolArea;
         document.getElementById('facilityRentTypes').value = rentTypeId;
-        console.log(poolArea)
     }
 </script>
 </html>

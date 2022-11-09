@@ -1,15 +1,15 @@
 package com.example.service.IFacility;
 
-import com.example.model.facility.StandardRoom;
+import com.example.model.facility.FacilityType;
 
 import java.util.List;
 
 public interface IStandardRoomService {
-    List<StandardRoom> findAll();
+    List<FacilityType> findAll();
 
-    StandardRoom findById(int id);
+    FacilityType findById(int id);
 
-    void save(StandardRoom standardRoom);
+    void save(FacilityType standardRoom);
 
-    void remove(StandardRoom standardRoom);
+    void remove(FacilityType standardRoom);
 }

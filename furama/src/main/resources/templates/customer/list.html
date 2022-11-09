@@ -57,8 +57,7 @@
                        name="name">
                 <input class="form-control me-2" aria-label="Search" type="text" placeholder="Search email"
                        name="email">
-
-                <select name="type" class="mx-3" aria-label="Search" >
+                <select name="type" class="mx-3" >
                     <option th:if="${type} !=''"
                             th:value="${type}"
                             th:text="${type}">
@@ -105,16 +104,16 @@
             <td th:text="${customer.address}"></td>
             <td th:text="${customer.customerType.name}"></td>
             <td><a th:href="@{/customer/edit-customer/__${customer.id}__}">EDIT</a></td>
-            <td><a th:href="@{/customer/delete-customer/__${customer.id}__}">DELETE</a></td>
-            <!--            <td>-->
-            <!--                <button type="button" class="btn btn-primary" data-bs-toggle="modal"-->
-            <!--                        data-bs-target="#deleteModal"-->
-            <!--                        th:data-facilityId="${customer.getId()}"-->
-            <!--                        th:data-facilityName="${customer.getName()}"-->
-            <!--                        th:onclick="|showModalDeleteCustomer(this.getAttribute('data-customerId'),this.getAttribute('data-customerName'))|">-->
-            <!--                    Delete-->
-            <!--                </button>-->
-            <!--            </td>-->
+<!--            <td><a th:href="@{/customer/delete-customer/__${customer.id}__}">DELETE</a></td>-->
+                        <td>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    th:data-customerId="${customer.getId()}"
+                                    th:data-customerName="${customer.getName()}"
+                                    th:onclick="|showModalDeleteCustomer(this.getAttribute('data-customerId'),this.getAttribute('data-customerName'))|">
+                                Delete
+                            </button>
+                        </td>
         </tr>
     </th:block>
     </tbody>
@@ -131,34 +130,37 @@
     function showModalDeleteCustomer(id, name) {
         $('#nameDelete').text(name)
         $('#modalDelete').modal('show');
-
         document.getElementById("confirmDelete").value = id;
     }
 </script>
 <!--Modal Xoá-->
-<!--<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="deleteModalLabel">Delete Customer</h5>-->
-<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p>-->
-<!--                    Are you sure you want to delete <span style="color: red" id="nameDelete"></span>?-->
-<!--                </p>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <form th:action="@{/customer/delete}" method="post">-->
-<!--                    <input hidden type="text" name="idDelete" id="confirmDelete">-->
-<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                    <button class="btn btn-danger" type="submit">Delete</button>-->
-<!--                </form>-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Are you sure you want to delete <span style="color: red" id="nameDelete"></span>?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <form action="/customer/delete"  >
+                    <input hidden type="text" name="id" id="confirmDelete">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
 
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
 </html>

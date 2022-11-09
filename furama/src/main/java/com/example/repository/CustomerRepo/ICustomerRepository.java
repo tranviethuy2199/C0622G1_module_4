@@ -11,21 +11,24 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer , Integer> {
-    @Query(value = "select c.* from `customer` c inner join `customer_type` ct on c.customer_id = ct.id" +
-            "    where ct.name =:type" +
-            "    and c.name like %:name% and" +
-            "    c.email like %:email% " ,
-            nativeQuery = true  )
+    @Query(value = "select c.* from `customer` c  join `customer_type` ct " +
+            "on c.customer_id = ct.id " +
+            "where c.name like %:name% " +
+            "and c.email like %:email% " +
+            "and ct.name like %:type% " +
+            "and status = 1",
+            nativeQuery = true)
     Page<Customer> findCustomerByName(@Param("name") String name,
                                       @Param("email") String email,
                                       @Param("type") String type , Pageable pageable);
 
+    @Query(value = "select * from customer where status = 1",
+            nativeQuery = true)
+    Page<Customer> findAll(
+            Pageable pageable);
 
-//    "select * from customer c " +
-//            "inner join customer_type ct on c.customer_id = ct.id " +
-//            "where " +
-//            "c.name like %:name% " +
-//            "and c.email like %:email%  " +
-//            "and ct.name like %:type%"
+//
+
+//    Page<Customer> findAll(Pageable pageable);
 
 }

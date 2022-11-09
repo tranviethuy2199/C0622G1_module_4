@@ -10,7 +10,7 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta facilityType="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
                aria-describedby="basic-addon1" th:field="*{name}">
     </div>
     <div class="d-flex align-items-center-group mb-3">
-        <label name="dateOfBirth">Birth day: </label>
+        <label facilityType="dateOfBirth">Birth day: </label>
         <input class="w-75" type="date" th:field="*{dateOfBirth}" value="dateOfBirth">
     </div>
     <div class="input-group mb-3">
@@ -56,11 +56,10 @@
     </div>
     <p>
         <input type="submit" value="Update Customer">
-        <input type="submit" value="close" th:action="@{/customer}">
-        <!--        <button type="submit" value="close"><a href="/customer"></a></button>-->
-
+<!--        <input type="submit" value="close" th:action="@{/customer}">-->
         <!--        <a href="/customer">back</a>-->
     </p>
 </form>
+<button type="submit" value="close"><a href="/customer"></a></button>
 </body>
 </html>

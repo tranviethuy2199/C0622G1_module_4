@@ -1,7 +1,11 @@
 package com.example.model.customer;
 
+import com.example.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class Customer {
@@ -15,16 +19,21 @@ public class Customer {
     private String email;
     private int gender;
     private String address;
+    private Integer status = 1;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="customer_id" , referencedColumnName = "id")
     private CustomerType customerType;
 
+    @OneToMany(mappedBy = "customer")
+    private Set<Contract> contracts;
+
     public Customer() {
     }
 
-    public Customer(Integer id, String name, Date dateOfBirth, int idCard,
-                    String phoneNumber, String email, int gender, String address, CustomerType customerType) {
+    public Customer(Integer id, String name, Date dateOfBirth, int idCard, String phoneNumber,
+                    String email, int gender, String address, Integer status,
+                    CustomerType customerType, Set<Contract> contracts) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -33,7 +42,25 @@ public class Customer {
         this.email = email;
         this.gender = gender;
         this.address = address;
+        this.status = status;
         this.customerType = customerType;
+        this.contracts = contracts;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     public Integer getId() {
