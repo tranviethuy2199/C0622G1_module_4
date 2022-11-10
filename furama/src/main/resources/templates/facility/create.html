@@ -2,38 +2,7 @@
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $(document).ready(function(){
-                $("#standRoom").change(function(){
-                    if($(this).val() == '1'){
-                        $("#villa").show()
-                        $("#house").hide()
-                        $("#room").hide()
-                    }
-                    if($(this).val() == '2'){
-                        $("#house").show()
-                        $("#villa_room").show()
-                        $("#room").hide()
-                        $("#villa").hide()
-                        $("#standardRoom").hide()
-                        $("#floor_rooms").hide()
 
-
-                    }
-                    if($(this).val() == '3'){
-                        $("#room").show()
-                        $("#villa").hide()
-                        $("#house").hide()
-                        $("#floor_rooms").hide()
-                        $("#convenience").hide()
-                    }
-                });
-
-            });
-
-        });
-    </script>
     <link rel="stylesheet" href="objectives_css.css">
     <!--    bootstrap css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -61,30 +30,51 @@
         <span class="input-group-text">amount</span>
         <input type="text" class="form-control" placeholder="amount / số lượng "
                th:field="*{amount}" id="facility-amount">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{amount}"-->
+<!--           th:if="${#fields.hasErrors('amount')}"></p>-->
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" >@</span>
         <input type="text" class="form-control" placeholder="name / Tên dịch vụ" aria-label="name"
                aria-describedby="basic-addon1" th:field="*{name}" id="facilityName">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{name}"-->
+<!--           th:if="${#fields.hasErrors('name')}"></p>-->
     </div>
     <div class="input-group mb-3" id="villa">
         <span class="input-group-text">@</span>
         <input type="text" class="form-control" id="facilityConvenience" placeholder="convenience / tiện nghi"
                aria-label="convenience"
                aria-describedby="basic-addon1" th:field="*{convenience}">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{convenience}"-->
+<!--           th:if="${#fields.hasErrors('convenience')}"></p>-->
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text">Area</span>
         <input type="text" class="form-control" id="facilityArea" placeholder="Area / diện tích" th:field="*{area}">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{area}"-->
+<!--           th:if="${#fields.hasErrors('area')}"></p>-->
         <span class="input-group-text">Cost</span>
         <input type="text" class="form-control" id="facilityCost" placeholder="cost / giá" th:field="*{cost}">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{cost}"-->
+<!--           th:if="${#fields.hasErrors('cost')}"></p>-->
     </div>
     <div class="input-group mb-3" id="floor_rooms">
         <span class="input-group-text">@</span>
         <input type="text" class="form-control"  placeholder="floors / số tầng" th:field="*{floors}">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{floors}"-->
+<!--           th:if="${#fields.hasErrors('floors')}"></p>-->
         <span class="input-group-text">@</span>
         <input type="text" class="form-control"
                placeholder="pool_area / diện tích hồ bơi" th:field="*{pool_area}">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{pool_area}"-->
+<!--           th:if="${#fields.hasErrors('pool_area')}"></p>-->
     </div>
     <div class="input-group mb-3" id="room">
         <span class="input-group-text">@</span>
@@ -92,6 +82,9 @@
                placeholder="facility_free / dịch vụ miễn phí đi kèm" aria-label="facility_free"
                aria-describedby="basic-addon1"
                th:field="*{facility_free}">
+<!--        <p style="color:red"-->
+<!--           th:errors="*{facility_free}"-->
+<!--           th:if="${#fields.hasErrors('facility_free')}"></p>-->
     </div>
     <div class="input-group mb-3">
         <select th:field="*{rentType}" id="facilityRentTypes">-->
@@ -109,4 +102,36 @@
 </form>
 </body>
 </body>
+<script>
+    $(document).ready(function(){
+        $(document).ready(function(){
+            $("#standRoom").change(function(){
+                if($(this).val() == '1'){
+                    $("#villa").show()
+                    $("#house").hide()
+                    $("#room").hide()
+                }
+                if($(this).val() == '2'){
+                    $("#house").show()
+                    $("#villa_room").show()
+                    $("#room").hide()
+                    $("#villa").hide()
+                    $("#standardRoom").hide()
+                    $("#floor_rooms").hide()
+
+
+                }
+                if($(this).val() == '3'){
+                    $("#room").show()
+                    $("#villa").hide()
+                    $("#house").hide()
+                    $("#floor_rooms").hide()
+                    $("#convenience").hide()
+                }
+            });
+
+        });
+
+    });
+</script>
 </html>

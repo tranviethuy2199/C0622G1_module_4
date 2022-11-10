@@ -103,8 +103,7 @@
                 <button type="button" class="btn btn-primary nut"
                         data-bs-target="#attachViewModal"
                         data-bs-toggle="modal"
-                        th:value="${contract.getId()}"
-                       >
+                        th:value="${contract.getId()}">
                     Attach Facility
                 </button>
             </td>
@@ -131,8 +130,6 @@
     }
 </script>
 
-
-
 <!--modal view Attach-->
 <div class="modal fade" id="attachViewModal" tabindex="-1" aria-labelledby="attachViewModalLabel"
      aria-hidden="true">
@@ -151,10 +148,10 @@
                             <th>name</th>
                             <th>cost</th>
                             <th>unit</th>
+<!--                            <th>quantity</th>-->
                         </tr>
                         </thead>
                         <tbody class="viewAF">
-
                         </tbody>
                     </table>
                 </div>
@@ -202,20 +199,22 @@
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous">
 </script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function () {
-
         $(".btn.btn-primary.nut").click(function showModalViewAttach() {
-
-
-            let attachFacilitiesId = $(this).val();
+            let idContract = $(this).val();
             $.ajax({
-                url: "http://localhost:8080/api/attach/v1/" + attachFacilitiesId,
+                url: "http://localhost:8080/api/attach/v1?id=" + idContract,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-                    alert(data.name);
+                    // alert(data.id);
+                    // alert(data.name);
+                    // alert(data.cost);
+                    // alert(data.unit);
                     let tr = [];
                     for (let i = 0; i < data.length; i++) {
                         tr.push("<tr>")
@@ -223,8 +222,10 @@
                         tr.push("<td>" + data[i].name + "</td>")
                         tr.push("<td>" + data[i].cost + "</td>")
                         tr.push("<td>" + data[i].unit + "</td>")
+                        // tr.push("<td>" + data[i].quantity + "</td>")
                         tr.push("</tr>")
                     }
+                    $(".viewAF").empty();
                     $(".viewAF").append(tr.join(""));
                 }
             });

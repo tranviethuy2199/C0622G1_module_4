@@ -122,29 +122,4 @@ public class ContractController {
         return "redirect:/contract";
     }
 
-
-//    @GetMapping("/find123")
-//    public ModelAndView find(@RequestParam(value = "searchName", required = false) String searchName,
-//                             @RequestParam(value = "type", required = false) String type,
-//                             @PageableDefault(value = 3) Pageable pageable , Model model) {
-//
-//        if (searchName == null) {
-//            searchName = "";
-//        }
-//
-//        if (type == null) {
-//            type = "";
-//        }
-//        Page<Facility> facilities = facilityService.findFacilityByName(searchName, type, pageable);
-//        List<FacilityType> facilityTypes = standardRoomService.findAll();
-//        ModelAndView modelAndView = new ModelAndView("/facility/list");
-//        modelAndView.addObject("facilities", facilities);
-//        modelAndView.addObject("facilityTypes", facilityTypes);
-//        modelAndView.addObject("searchName", searchName);
-//        modelAndView.addObject("type", type);
-//        modelAndView.addObject("facilityEmpty", new Facility());
-//        model.addAttribute("name" , searchName);
-//        return modelAndView;
-//
-//    }
 }

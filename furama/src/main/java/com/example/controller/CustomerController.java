@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,7 +49,13 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/create")
-    public ModelAndView createBlog(@ModelAttribute("customer") Customer customer) {
+    public ModelAndView createBlog(@Validated @ModelAttribute("customer") Customer customer,
+                                   BindingResult bindingResult) {
+        new Customer().validate(customer,bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("customer/create");
+            return modelAndView;
+        }
         customerService.save(customer);
         List<CustomerType> customerTypes = customerTypeService.findAll();
         ModelAndView modelAndView = new ModelAndView("/customer/create");

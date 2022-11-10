@@ -1,19 +1,32 @@
 package com.example.model.facility;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Facility {
+public class Facility implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+//    @NotBlank(message = "không được để trống")
     private String name;
+//    @NotBlank(message = "không được để trống")
     private double area;
+//    @NotBlank(message = "không được để trống")
     private double cost;
+//    @NotBlank(message = "không được để trống")
     private int amount;
+//    @NotBlank(message = "không được để trống")
     private String convenience; // tiện nghi - room and villa
+//    @NotBlank(message = "không được để trống")
     private Integer floors;
+//    @NotBlank(message = "không được để trống")
     private String facility_free; // dịch vụ miễn phí đi kèm - room
+//    @NotBlank(message = "không được để trống")
     private String pool_area; // diện tích hồ bơi - villa
     private Integer status = 1;
 
@@ -144,5 +157,15 @@ public class Facility {
 
     public void setRentType(RentType rentType) {
         this.rentType = rentType;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 }

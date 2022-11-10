@@ -13,6 +13,9 @@ public interface IContractService {
     // tìm contract theo id
     Contract findById(Integer id);
 
+    //hiển thị danh sách dịch vụ đi kèm theo contract id
+    Contract showAttachFacilityById(int id);
+
     // lưu khi add contract
     void save(Contract contract);
 

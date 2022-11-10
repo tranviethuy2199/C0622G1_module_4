@@ -2,27 +2,38 @@ package com.example.model.customer;
 
 import com.example.model.contract.Contract;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.persistence.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.*;
 import java.sql.Date;
 import java.util.Set;
 
 @Entity
-public class Customer {
+public class Customer implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "không được để trống")
+    @Size(min = 4 , max = 25 , message = "nhập sai định dạng")
     private String name;
     private Date dateOfBirth;
+    @Min(value = 9 , message = "9 so")
     private int idCard;
+    @NotBlank(message = "không được để trống")
     private String phoneNumber;
+    @NotEmpty(message = "không được để trống")
+    @Email(message = "nhập sai định dạng email")
     private String email;
     private int gender;
+    @NotBlank(message = "không được để trống")
     private String address;
     private Integer status = 1;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="customer_id" , referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private CustomerType customerType;
 
     @OneToMany(mappedBy = "customer")
@@ -133,5 +144,15 @@ public class Customer {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 }

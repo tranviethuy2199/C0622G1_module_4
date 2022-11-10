@@ -30,6 +30,11 @@ public class ContractService implements IContractService {
     }
 
     @Override
+    public Contract showAttachFacilityById(int id) {
+        return contractRepository.showAttachFacilityById(id);
+    }
+
+    @Override
     public void save(Contract contract) {
         contractRepository.save(contract);
     }

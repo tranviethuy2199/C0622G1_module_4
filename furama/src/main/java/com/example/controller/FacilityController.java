@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -58,7 +60,12 @@ public class FacilityController {
     }
 
     @PostMapping("/facility/create")
-    public ModelAndView createBlog(@ModelAttribute("facility") Facility facility) {
+    public ModelAndView createBlog(@Validated  @ModelAttribute("facility") Facility facility , BindingResult bindingResult) {
+        new Facility().validate(facility, bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("/facility/create");
+            return modelAndView;
+        }
         facilityService.save(facility);
         List<FacilityType> facilityTypes = standardRoomService.findAll();
         List<RentType> rentTypes = rentTypeService.findAll();

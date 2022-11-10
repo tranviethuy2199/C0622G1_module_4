@@ -273,4 +273,36 @@
         document.getElementById('facilityRentTypes').value = rentTypeId;
     }
 </script>
+<script>
+    $(document).ready(function(){
+        $(document).ready(function(){
+            $("#facilityType").change(function(){
+                if($(this).val() == '1'){
+                    $("#villa").show()
+                    $("#house").hide()
+                    $("#room").hide()
+                }
+                if($(this).val() == '2'){
+                    $("#house").show()
+                    $("#villa_room").show()
+                    $("#room").hide()
+                    $("#villa").hide()
+                    $("#standardRoom").hide()
+                    $("#floor_rooms").hide()
+
+
+                }
+                if($(this).val() == '3'){
+                    $("#room").show()
+                    $("#villa").hide()
+                    $("#house").hide()
+                    $("#floor_rooms").hide()
+                    $("#convenience").hide()
+                }
+            });
+
+        });
+
+    });
+</script>
 </html>

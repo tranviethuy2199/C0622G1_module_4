@@ -1,5 +1,6 @@
 package com.example.controller.contract;
 
+import com.example.model.contract.AttachFacility;
 import com.example.model.contract.Contract;
 import com.example.service.ContractService.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
