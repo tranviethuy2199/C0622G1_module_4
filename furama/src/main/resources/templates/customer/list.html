@@ -104,7 +104,18 @@
             <td th:text="${customer.address}"></td>
             <td th:text="${customer.customerType.name}"></td>
             <td><a th:href="@{/customer/edit-customer/__${customer.id}__}">EDIT</a></td>
-<!--            <td><a th:href="@{/customer/delete-customer/__${customer.id}__}">DELETE</a></td>-->
+<!--            modal edit-->
+<!--            <td>-->
+<!--                <button type="button" class="btn btn-warning"-->
+<!--                        th:attr="onclick=|showModalEditCustomer('${customer.id}','${customer.name}', '${customer.dateOfBirth}',-->
+<!--                     '${customer.idCard}', '${customer.phoneNumber}', '${customer.email}',-->
+<!--                      '${customer.gender}', '${customer.address}', '${customer.customerType.name}'|"-->
+<!--                        data-bs-toggle="modal" data-bs-target="#editInfoModal">-->
+<!--                    Edit-->
+<!--                </button>-->
+<!--            </td>-->
+
+<!--                        modal delete-->
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal"
@@ -158,9 +169,99 @@
         </div>
     </div>
 </div>
+
+
+<!--modal edit-->
+<!--<div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="editInfoModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <form th:object="${customer}" action="/customer/edit">-->
+<!--            <div class="input-group mb-3">-->
+<!--&lt;!&ndash;                <input type="text" th:field="*{id}" id="customer-id" hidden>&ndash;&gt;-->
+<!--                <span class="input-group-text" id="basic-addon1">@</span>-->
+<!--                <input type="text" class="form-control" placeholder="Username / Tên" aria-label="Username"-->
+<!--                       aria-describedby="basic-addon1" th:field="*{name}" id="customerName">-->
+<!--                <p style="color:red"-->
+<!--                   th:errors="*{name}"-->
+<!--                   th:if="${#fields.hasErrors('name')}"></p>-->
+<!--            </div>-->
+<!--            <div class="d-flex align-items-center-group mb-3">-->
+<!--                <label name="dateOfBirth">Birth day: </label>-->
+<!--                <input class="w-75" type="date" th:field="*{dateOfBirth}" value="dateOfBirth" id="customerBirth">-->
+<!--            </div>-->
+<!--            <div class="input-group mb-3">-->
+<!--                <span class="input-group-text">IdCard</span>-->
+<!--                <input type="text" class="form-control" placeholder="id card / Cmnd" th:field="*{idCard}" id="customerCard">-->
+<!--                <p style="color:red"-->
+<!--                   th:errors="*{idCard}"-->
+<!--                   th:if="${#fields.hasErrors('idCard')}"></p>-->
+<!--                <span class="input-group-text">@</span>-->
+<!--                <input type="text" class="form-control" placeholder="phone number" th:field="*{phoneNumber}" id="customerPhone">-->
+<!--                <p style="color:red"-->
+<!--                   th:errors="*{phoneNumber}"-->
+<!--                   th:if="${#fields.hasErrors('phoneNumber')}"></p>-->
+<!--            </div>-->
+<!--            <div class="input-group mb-3">-->
+<!--                <input type="text" class="form-control" placeholder="Email" aria-label="Recipient's username"-->
+<!--                       aria-describedby="basic-addon2" th:field="*{email}" id="customerEmail">-->
+<!--                <span class="input-group-text" id="basic-addon2">@gmail.com</span>-->
+<!--                <p style="color:red"-->
+<!--                   th:errors="*{email}"-->
+<!--                   th:if="${#fields.hasErrors('email')}"></p>-->
+<!--            </div>-->
+<!--            <div class="input-group mb-3">-->
+<!--                <span class="input-group-text">@</span>-->
+<!--                <input type="radio" th:field="*{gender}" value="0">Male-->
+<!--                <input type="radio" th:field="*{gender}" value="1">Female-->
+<!--                <input type="radio" th:field="*{gender}" value="2">LGBT-->
+<!--            </div>-->
+<!--            <div class="input-group mb-3">-->
+<!--                <span class="input-group-text">@</span>-->
+<!--                <input type="text" class="form-control" placeholder="address / Địa chỉ" th:field="*{address}" id="customerAddress">-->
+<!--                <p style="color:red"-->
+<!--                   th:errors="*{address}"-->
+<!--                   th:if="${#fields.hasErrors('address')}"></p>-->
+<!--            </div>-->
+<!--            <div class="input-group mb-3">-->
+<!--                <select th:field="*{customerType}" id="customerType">&ndash;&gt;-->
+<!--                    <option th:each="item:${customerTypes}" th:value="${item.id}" th:text="${item.name}"></option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <p>-->
+<!--                <input type="submit" value="Create blog">-->
+<!--                <input type="submit" value="close" th:action="@{/customer}">-->
+<!--                &lt;!&ndash;        <button type="submit" value="close"><a href="/customer"></a></button>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;        <a href="/customer">back</a>&ndash;&gt;-->
+<!--            </p>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                    <button type="submit" class="btn btn-warning">Save changes</button>-->
+<!--                </div>-->
+<!--            </div>-->
+        </form>
+    </div>
+</div>
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+
+
+<!--<script>-->
+<!--    function  showModalEditCustomer(id, name ,idCard, dateOfBirth,-->
+<!--                                    phoneNumber, email,address, customerType) {-->
+
+<!--        document.getElementById('customer-id').value = id;-->
+<!--        document.getElementById('customerName').value = name;-->
+<!--        document.getElementById('customerBirth').value = dateOfBirth;-->
+<!--        document.getElementById('customerCard').value = idCard;-->
+<!--        document.getElementById('customerPhone').value = phoneNumber;-->
+<!--        document.getElementById('customerEmail').value = email;-->
+<!--        document.getElementById('customerAddress').value = address;-->
+<!--        document.getElementById('customerType').value = customerType;-->
+<!--    }-->
+<!--</script>-->
 </html>

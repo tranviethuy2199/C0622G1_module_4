@@ -4,6 +4,7 @@ import com.example.model.customer.Customer;
 import com.example.model.customer.CustomerType;
 import com.example.service.ICustomer.ICustomerService;
 import com.example.service.ICustomer.ICustomerTypeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/customer")

@@ -99,7 +99,8 @@
             <td th:text="${facilitie.facility_free}"></td>
             <td th:text="${facilitie.pool_area}"></td>
             <td th:text="${facilitie.rentType.note}"></td>
-            <!--            <td><a th:href="@{/facilitie/edit-facilitie/__${facilitie.id}__}">EDIT</a></td>-->
+
+<!--            modal edit-->
             <td>
                 <button type="button" class="btn btn-warning"
                         th:attr="onclick=|showModalEditCustomer('${facilitie.facilityType.id}','${facilitie.name}', '${facilitie.area}',
@@ -110,6 +111,8 @@
                     Edit
                 </button>
             </td>
+
+<!--            modal delete-->
             <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#deleteModal"
@@ -255,6 +258,8 @@
         crossorigin="anonymous">
 
 </script>
+
+<!--script edit-->
 <script>
     function  showModalEditCustomer(facilityType, name ,area, cost,
                                     amount, convenience,floors, facilityFree,
